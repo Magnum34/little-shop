@@ -1,0 +1,9 @@
+{
+	"name": "magnum34/littleShop",
+	"description": "Providers of small shop ecommerce",
+	"keywords": ["silverstripe", "shop","ecommerce"],
+	"license": "BSD-2-Clause",
+	"minimum-stability": "dev",
+    "type": "silverstripe-module"
+
+}
