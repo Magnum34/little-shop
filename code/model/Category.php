@@ -1,10 +1,11 @@
 <?php
 
-
 class Category extends DataObject {
 
+	private static $default_sort = '"Sort" ASC';
 	private static $db = array(
 		"Name" => "Varchar(255)",
+		"URLSegment" => "Varchar(255)",
 		"ShortDescription" => "Text",
 		"Sort" => "Int"
 	);
@@ -15,6 +16,9 @@ class Category extends DataObject {
 
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
+		$fields->removeByName("Sort");
+		$fields->removeByName("URLSegment");
+		$fields->removeByName("ParentID");
 
 		return $fields;
 	}

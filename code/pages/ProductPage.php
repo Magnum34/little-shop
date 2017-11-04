@@ -25,7 +25,10 @@ class ProductPage extends Page {
 		"Popularity" => "Int"
 	);
 
-	private static $many_many = array("ProductTag" => "ProductTag");
+	private static $many_many = array(
+		"ProductTag" => "ProductTag",
+		"Images" => "Image"
+	);
 
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
