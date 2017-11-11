@@ -10,6 +10,7 @@ class ShopAdmin extends ModelAdmin {
     private static $managed_models = array(
         'ProductPage',
         'ProductCategory',
+        'ProductKind',
         'ProductTag'
     );
 

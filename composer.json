@@ -6,6 +6,7 @@
 	"minimum-stability": "dev",
 	"type": "silverstripe-module",
 	"require": {
-		"silverstripe/tagfield": "^2.0@dev"
+		"silverstripe/tagfield": "^2.0@dev",
+		"colymba/gridfield-bulk-editing-tools": "^3.0@dev"
 	}
 }

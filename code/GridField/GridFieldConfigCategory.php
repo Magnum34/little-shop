@@ -22,6 +22,14 @@ class GridFieldConfigCategory extends GridFieldConfig {
         $this->addComponent(new GridFieldExportButton("buttons-before-right"));
         $this->addComponent($pagination = new GridFieldPaginator($itemsPerPage));
 
+
+        // Setup Bulk manager
+        $manager = new GridFieldBulkManager();
+        $manager->removeBulkAction("unLink");
+
+
+        $this->addComponent($manager);
+
         $addbutton = new GridFieldAddNewMultiClass("buttons-before-left");
 
         if($className == "ProductCategory"){
