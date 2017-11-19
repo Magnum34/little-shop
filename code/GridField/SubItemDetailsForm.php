@@ -6,11 +6,11 @@
  * Time: 17:58
  */
 
-class ProductSubCategoryDetailsForm extends  GridFieldDetailForm  {
+class SubItemDetailsForm extends  GridFieldDetailForm  {
 
 }
 
-class ProductSubCategoryDetailsForm_ItemRequest extends GridFieldDetailForm_ItemRequest {
+class SubItemDetailsForm_ItemRequest extends GridFieldDetailForm_ItemRequest {
 
     private static $allowed_actions = array(
         'edit',

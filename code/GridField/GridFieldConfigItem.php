@@ -1,7 +1,8 @@
 <?php
 
 
-class GridFieldConfigCategory extends GridFieldConfig {
+class GridFieldConfigItem extends GridFieldConfig {
+
 
 
     /**
@@ -31,10 +32,11 @@ class GridFieldConfigCategory extends GridFieldConfig {
         $this->addComponent($manager);
 
         $addbutton = new GridFieldAddNewMultiClass("buttons-before-left");
+        $addbutton->setClasses(array($className => $className));
 
-        if($className == "ProductCategory"){
-            $this->addComponent(new ProductSubCategoryDetailsForm());
-            $addbutton->setItemRequestClass("ProductSubCategoryDetailsForm_ItemRequest");
+        if($className == "ProductCategory" || $className == "ProductKind"){
+            $this->addComponent(new SubItemDetailsForm());
+            $addbutton->setItemRequestClass("SubItemDetailsForm_ItemRequest");
         }
 
         $this->addComponent($addbutton);

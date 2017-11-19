@@ -8,7 +8,7 @@ class ShopAdmin extends ModelAdmin {
     private static $menu_title = 'Little Shop';
 
     private static $managed_models = array(
-        'ProductPage',
+        'Product',
         'ProductCategory',
         'ProductKind',
         'ProductTag'
@@ -19,7 +19,7 @@ class ShopAdmin extends ModelAdmin {
         $list = parent::getList();
 
         // Filter categories
-        if ($this->modelClass == 'ProductCategory') {
+        if ($this->modelClass == 'ProductCategory' || $this->modelClass == 'ProductKind'  ) {
             $list = $list->filter('ParentID', 0);
         }
 
@@ -33,7 +33,14 @@ class ShopAdmin extends ModelAdmin {
         $form = parent::getEditForm($id, $fields);
         $gridField = $form->Fields()->fieldByName($this->modelClass);
         if ($this->modelClass == 'ProductCategory') {
-            $gridField->setConfig(new GridFieldConfigCategory(
+            $gridField->setConfig(new GridFieldConfigItem(
+                $this->modelClass,
+                $this->config()->page_length
+            ));
+        }
+
+        if ($this->modelClass == 'ProductKind') {
+            $gridField->setConfig(new GridFieldConfigItem(
                 $this->modelClass,
                 $this->config()->page_length
             ));
