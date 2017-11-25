@@ -14,7 +14,7 @@ class ProductTag extends DataObject {
 	private static $default_sort = '"Sort" ASC';
 
 	private static $db = array(
-		"Name" => "Varchar(200)",
+		"Title" => "Varchar(200)",
 		"URLSegment" => "Varchar(255)",
 		"Sort" => "Int"
 	);

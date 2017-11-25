@@ -36,13 +36,31 @@ class Product extends DataObject {
         "URLSegment" => true,
     );
 
+
+    public function getGridFieldImages(){
+        $config =  GridFieldConfig_RecordEditor::create(25);
+        $config->addComponent(new GridFieldBulkUpload());
+        $config->addComponent(new GridFieldOrderableRows());
+        $gridFieldImage = new GridField("Images","Images",$this->Images(),$config);
+        return $gridFieldImage;
+    }
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
         $fields->removeByName("Sort");
+        $fields->removeByName("ProductTags");
         $obj_url = new URLSegmentField();
         $url_field = $obj_url->getURLEditField();
         $fields->addFieldsToTab("Root.Main",$url_field);
+        $fields->addFieldsToTab("Root.Main", TagField::create("ProductTags", "Tags", ProductTag::get(), $this->ProductTags())
+            ->setShouldLazyLoad(true)
+            ->setCanCreate(true)
+            ,"Content");
+        //images
+        $fields->addFieldsToTab("Root.Images",$this->getGridFieldImages());
+
+
 
         return $fields;
     }
