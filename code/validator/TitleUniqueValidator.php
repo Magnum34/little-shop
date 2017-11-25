@@ -32,9 +32,11 @@ class TitleUniqueValidator extends RequiredFields {
             if(isset($data['Title']) && isset($this->ClassNameValidator) && isset($this->objID)){
                 $title = $data['Title'];
                 $obj = DataObject::get_one($this->ClassNameValidator,array("Title" => $title));
-                if($obj->ID != $this->objID){
-                    $this->validationError('Title', 'Title have to unique !', "required");
-                    $required = false;
+                if($obj){
+                    if($obj->ID != $this->objID){
+                        $this->validationError('Title', 'Title have to unique !', "required");
+                        $required = false;
+                    }
                 }
             }
         }
@@ -47,9 +49,11 @@ class TitleUniqueValidator extends RequiredFields {
             if(isset($data['Name']) && isset($this->ClassNameValidator) && isset($this->objID)){
                 $name = $data['Name'];
                 $obj = DataObject::get_one($this->ClassNameValidator,array("Name" => $name));
-                if($obj->ID != $this->objID){
-                    $this->validationError('Name', 'Name have to unique !', "required");
-                    $required = false;
+                if($obj) {
+                    if ($obj->ID != $this->objID) {
+                        $this->validationError('Name', 'Name have to unique !', "required");
+                        $required = false;
+                    }
                 }
             }
         }

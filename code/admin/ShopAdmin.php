@@ -7,6 +7,8 @@ class ShopAdmin extends ModelAdmin {
 
     private static $menu_title = 'Little Shop';
 
+    private static $menu_icon = './little-shop/images/shopping.png';
+
     private static $managed_models = array(
         "Product" => array("title" => "Products"),
         "ProductCategory" => array("title" => "Categories"),

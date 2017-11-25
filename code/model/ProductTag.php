@@ -50,8 +50,18 @@ class ProductTag extends DataObject {
     public function onBeforeWrite()
     {
         parent::onBeforeWrite();
-        if($this->Title && !$this->URLSegment)
-            $this->URLSegment =  SiteTree::generateURLSegment($this->Title);
+        if($this->Title && !$this->URLSegment) {
+            $title = $this->Title;
+            $filter = URLSegmentFilter::create();
+            $t = $filter->filter($title);
+
+            // Fallback to generic page name if path is empty (= no valid, convertable characters)
+            if (!$t || $t == '-' || $t == '-1') $t = "tag-$this->ID";
+
+            // Hook for extensions
+            $this->extend('updateURLSegment', $t, $title);
+            $this->URLSegment = $t;
+        }
     }
 
 

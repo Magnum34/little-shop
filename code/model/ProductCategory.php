@@ -2,10 +2,6 @@
 
 class ProductCategory extends DataObject {
 
-    private static $field_labels = array(
-        'URLSegment' => 'URL'
-    );
-
 	private static $default_sort = '"Sort" ASC';
 
 	private static $db = array(
@@ -75,8 +71,29 @@ class ProductCategory extends DataObject {
     public function onBeforeWrite()
     {
         parent::onBeforeWrite();
-        if($this->Name && !$this->URLSegment)
-            $this->URLSegment =  SiteTree::generateURLSegment($this->Name);
+        if($this->Name && !$this->URLSegment) {
+            $name = $this->Name;
+            $filter = URLSegmentFilter::create();
+            $t = $filter->filter($name);
 
+            // Fallback to generic page name if path is empty (= no valid, convertable characters)
+            if (!$t || $t == '-' || $t == '-1') $t = "category-$this->ID";
+
+            // Hook for extensions
+            $this->extend('updateURLSegment', $t, $name);
+            $this->URLSegment = $t;
+        }
+
+    }
+
+    public function onBeforeDelete()
+    {
+        parent::onBeforeDelete();
+
+        if ($this->Children()) {
+            foreach ($this->Children() as $child) {
+                $child->delete();
+            }
+        }
     }
 }
