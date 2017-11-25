@@ -62,6 +62,13 @@ class ProductCategory extends DataObject {
 		return $fields;
 	}
 
+    public function getCMSValidator() {
+        $validator = new TitleUniqueValidator();
+        $validator->setClassNameValidator($this->ClassName);
+        $validator->setObjID($this->ID);
+        return $validator;
+    }
+
     /**
      * Generarte URLSegment for Object
      */

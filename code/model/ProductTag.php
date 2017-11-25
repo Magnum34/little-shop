@@ -36,15 +36,22 @@ class ProductTag extends DataObject {
 		return $fields;
 	}
 
+
+    public function getCMSValidator() {
+        $validator = new TitleUniqueValidator();
+        $validator->setClassNameValidator($this->ClassName);
+        $validator->setObjID($this->ID);
+        return $validator;
+    }
+
     /**
      * Generarte URLSegment for Object
      */
     public function onBeforeWrite()
     {
         parent::onBeforeWrite();
-        if($this->Name && !$this->URLSegment)
-            $this->URLSegment =  SiteTree::generateURLSegment($this->Name);
-
+        if($this->Title && !$this->URLSegment)
+            $this->URLSegment =  SiteTree::generateURLSegment($this->Title);
     }
 
 

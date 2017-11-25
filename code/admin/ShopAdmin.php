@@ -8,10 +8,10 @@ class ShopAdmin extends ModelAdmin {
     private static $menu_title = 'Little Shop';
 
     private static $managed_models = array(
-        'Product',
-        'ProductCategory',
-        'ProductKind',
-        'ProductTag'
+        "Product" => array("title" => "Products"),
+        "ProductCategory" => array("title" => "Categories"),
+        "ProductKind" => array("title"  => "Kinds"),
+        "ProductTag" =>  array("title" => "Tags")
     );
 
 
@@ -44,6 +44,13 @@ class ShopAdmin extends ModelAdmin {
                 $this->modelClass,
                 $this->config()->page_length
             ));
+        }
+
+        if($this->modelClass == 'Product' || $this->modelClass == 'ProductTag'){
+            $gridField->getConfig()->addComponent(new GridFieldOrderableRows());
+            $manager = new GridFieldBulkManager();
+            $manager->removeBulkAction("unLink");
+            $gridField->getConfig()->addComponent($manager);
         }
 
         $this->extend("updateEditForm", $form);

@@ -16,6 +16,7 @@ class Product extends DataObject {
 
     private static $db = array(
         "Title" => "Varchar(255)",
+        "StockID" => "Varchar(255)",
         "URLSegment" => "Varchar(255)",
         "ShortDescription" => "Text",
         "Content" => "HTMLText",
@@ -50,6 +51,9 @@ class Product extends DataObject {
         $fields = parent::getCMSFields();
         $fields->removeByName("Sort");
         $fields->removeByName("ProductTags");
+        $fields->removeByName("Categories");
+        $fields->removeByName("Kinds");
+
         $obj_url = new URLSegmentField();
         $url_field = $obj_url->getURLEditField();
         $fields->addFieldsToTab("Root.Main",$url_field);
@@ -57,12 +61,22 @@ class Product extends DataObject {
             ->setShouldLazyLoad(true)
             ->setCanCreate(true)
             ,"Content");
+        //categories and Kinds
+        $fields->addFieldsToTab("Root.CategoriesAndKinds", TreeMultiselectField::create("Categories","Categories","ProductCategory"));
+        $fields->addFieldsToTab("Root.CategoriesAndKinds", TreeMultiselectField::create("Kinds","Kinds","ProductKind"));
         //images
         $fields->addFieldsToTab("Root.Images",$this->getGridFieldImages());
 
 
-
         return $fields;
+    }
+
+
+    public function getCMSValidator() {
+        $validator = new TitleUniqueValidator();
+        $validator->setClassNameValidator($this->ClassName);
+        $validator->setObjID($this->ID);
+        return $validator;
     }
 
     /**
@@ -75,6 +89,8 @@ class Product extends DataObject {
             $this->URLSegment =  SiteTree::generateURLSegment($this->Title);
 
     }
+
+
 
 
 }
