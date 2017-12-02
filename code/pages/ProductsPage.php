@@ -24,6 +24,7 @@ class ProductsPage extends Page {
 
 class ProductsPage_Controller extends Page_Controller {
 
+    private $products;
 
     private static $allowed_actions = array(
         'index'
@@ -57,7 +58,19 @@ class ProductsPage_Controller extends Page_Controller {
 
     public function index(SS_HTTPRequest $request){
 
+        $this->products = Product::get();
+
         return $this;
+    }
+
+    public function getProducts(){
+
+    }
+
+    public function PaginatedList($limit = 10){
+        $pages = new PaginatedList($this->products, $this->getRequest());
+        $pages->setPageLength($limit);
+        return $pages;
     }
 	
 }

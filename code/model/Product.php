@@ -28,6 +28,7 @@ class Product extends DataObject {
         "ProductTags" => "ProductTag"
     );
 
+
     private static $belongs_many_many = array(
         "Categories" => "ProductCategory",
         "Kinds" => "ProductKind"
@@ -96,6 +97,19 @@ class Product extends DataObject {
             // Hook for extensions
             $this->extend('updateURLSegment', $t, $title);
             $this->URLSegment = $t;
+        }
+
+    }
+
+
+    /**
+    * Summary the Product
+    **/
+    public function Summary($maxWords = 50){
+        if($this->ShortDescription){
+            return $this->dbObject('ShortDescription')->Summary($maxWords);
+        }else{
+            return $this->dbObject('Content')->Summary($maxWords);
         }
 
     }
