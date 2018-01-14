@@ -7,6 +7,7 @@
 	"type": "silverstripe-module",
 	"require": {
 		"silverstripe/tagfield": "^2.0@dev",
-		"colymba/gridfield-bulk-editing-tools": "2.1.10"
+		"colymba/gridfield-bulk-editing-tools": "2.1.10",
+		"bummzack/sortablefile": "^1.0@dev"	
 	}
 }

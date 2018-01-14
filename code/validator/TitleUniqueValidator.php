@@ -32,7 +32,7 @@ class TitleUniqueValidator extends RequiredFields {
             if(isset($data['Title']) && isset($this->ClassNameValidator) && isset($this->objID)){
                 $title = $data['Title'];
                 $obj = DataObject::get_one($this->ClassNameValidator,array("Title" => $title));
-                if($obj){
+                if($obj && $this->ClassNameValidator != 'Product'){
                     if($obj->ID != $this->objID){
                         $this->validationError('Title', 'Title have to unique !', "required");
                         $required = false;

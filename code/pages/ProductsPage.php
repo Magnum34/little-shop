@@ -27,8 +27,12 @@ class ProductsPage_Controller extends Page_Controller {
     private $products;
 
     private static $allowed_actions = array(
-        'index'
+        'index', 'details'
     );
+	
+	private static $url_handlers = array(
+	  '$Action/$product_url,$ID'
+	);
 
     public function getListCategories(){
         $parents = ProductCategory::get()->filter(array("ParentID" => 0));
@@ -62,8 +66,18 @@ class ProductsPage_Controller extends Page_Controller {
 
         return $this;
     }
+	
+	public function details(SS_HTTPRequest $request){
+		$product_url=  $request->param('product_url');
+		$id = $request->param('ID');
+		var_dump($id." , ".$product_url);
+		
+		//$product = Product::get()->filter();
+		
+		return $this->renderWith(array('ProductPage_Details','Page'));
+	}
 
-    public function getProducts(){
+	public function getProducts(){
 
     }
 

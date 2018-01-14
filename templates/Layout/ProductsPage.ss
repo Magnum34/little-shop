@@ -47,13 +47,25 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">$Title</div>
                         <div class="panel-body">
-                            $Summary
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="$Thumbnail.URL" alt="$Thumbnail.Title" width="300px" >
+                                </div>
+                                <div class="col-6">
+                                    <p>$Summary</p><br>
+                                    <a href="#">View details</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <% end_loop %>
             <% end_if %>
+            <div class="pagination">
+                <% include Pagination Pagination=$PaginatedList %>
+            </div>   
 
         </div>
+         
 
     </div>
 

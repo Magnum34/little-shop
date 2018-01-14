@@ -24,28 +24,28 @@ class Product extends DataObject {
     );
 
     private static $many_many  =array(
-        "Images" => "Image",
+		"Images" => "Image",
         "ProductTags" => "ProductTag"
     );
+	
+	private static $has_one = array(
+		"ThumbnailImage" => "Image"
+	);
 
 
     private static $belongs_many_many = array(
         "Categories" => "ProductCategory",
         "Kinds" => "ProductKind"
     );
+	
+	private static $many_many_extraFields = array(
+        'Images' => array('SortOrder' => 'Int')
+    );
+
 
     private static $indexes = array(
         "URLSegment" => true,
     );
-
-
-    public function getGridFieldImages(){
-        $config =  GridFieldConfig_RecordEditor::create(25);
-        $config->addComponent(new GridFieldBulkUpload());
-        $config->addComponent(new GridFieldOrderableRows());
-        $gridFieldImage = new GridField("Images","Images",$this->Images(),$config);
-        return $gridFieldImage;
-    }
 
     public function getCMSFields()
     {
@@ -66,7 +66,8 @@ class Product extends DataObject {
         $fields->addFieldsToTab("Root.CategoriesAndKinds", TreeMultiselectField::create("Categories","Categories","ProductCategory"));
         $fields->addFieldsToTab("Root.CategoriesAndKinds", TreeMultiselectField::create("Kinds","Kinds","ProductKind"));
         //images
-        $fields->addFieldsToTab("Root.Images",$this->getGridFieldImages());
+        $fields->addFieldsToTab("Root.Images",  SortableUploadField::create("Images","Images"));
+		$fields->addFieldsToTab("Root.Images",  UploadField::create("ThumbnailImage","Thumbnail"));
 
 
         return $fields;
@@ -112,6 +113,26 @@ class Product extends DataObject {
             return $this->dbObject('Content')->Summary($maxWords);
         }
 
+    }
+	
+	public function getLink(){
+		
+	}
+	
+	public function getThumbnail(){
+		if($this->ThumbnailImage()->exists()){
+			return $this->ThumbnailImage();
+		}else{
+			if($this->Images()->first()){
+				return $this->Images()->first();
+			}
+		}
+		return false;
+		
+	}
+	
+	public function SortedImages(){
+        return $this->Images()->Sort('SortOrder');
     }
 
 
