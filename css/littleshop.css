@@ -1,0 +1,16 @@
+
+.btn-slider-left {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(0%,-50%);
+    border: none;
+}
+
+.btn-slider-right {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(0%,-50%);
+    border: none;
+}

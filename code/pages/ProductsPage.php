@@ -32,7 +32,7 @@ class ProductsPage_Controller extends Page_Controller {
 	
 	private static $url_handlers = array(
         'search' => 'index',
-        'details/$ID' => 'details'
+        'details/$URL' => 'details'
 	);
 
     public function getListCategories(){
@@ -71,9 +71,13 @@ class ProductsPage_Controller extends Page_Controller {
             switch($key){
                 case "url":
                     break;
-                case "category":
-                    //TODO: filter Children
-                    $list["Categories.Name"] = $value;
+                case "category":            
+                    $children = DataObject::get_one("ProductCategory","URLSegment = '$value' ")->Children()->column("URLSegment");
+                    if(!$children){
+                        $children = array();
+                    }
+                    $children[] = $value;
+                    $list["Categories.URLSegment"] = $children;
                 default:
                     break;
             }
@@ -96,11 +100,12 @@ class ProductsPage_Controller extends Page_Controller {
     }
 	
 	public function details(SS_HTTPRequest $request){
-		$product_url=  $request->param('product_url');
-		$id = $request->param('ID');
-		var_dump($id." , ".$product_url);
-		
-		//$product = Product::get()->filter();
+		$URL = $request->param('URL');
+        if(!$URL){
+			$this->httpError(404);
+        }
+        $product = DataObject::get_one("Product","URLSegment = '$URL' ");	
+		$this->customise($product);
 		
 		return $this->renderWith(array('ProductPage_Details','Page'));
 	}

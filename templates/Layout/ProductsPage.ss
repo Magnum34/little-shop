@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-6">
                                     <p>$Summary</p><br>
-                                    <a href="#">View details</a>
+                                    <a href="$Link">View details</a>
                                 </div>
                             </div>
                         </div>

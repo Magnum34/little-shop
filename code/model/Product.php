@@ -116,7 +116,7 @@ class Product extends DataObject {
     }
 	
 	public function getLink(){
-		
+			return Controller::join_links(Controller::curr()->URLSegment,'details',$this->URLSegment.",".$this->ID);
 	}
 	
 	public function getThumbnail(){
