@@ -96,4 +96,24 @@ class ProductCategory extends DataObject {
             }
         }
     }
+
+    public function ParserVars(array $vars){
+        $list = '';
+        foreach($vars as $key => $value){
+            if("url" != $key && "category" != $key){
+                $list .= '&'.$key.'='.$value;
+            }
+        }
+        return $list;
+
+    }
+
+    public function getLink(){
+        $page = ProductsPage::get()->first();
+        if($page){
+            $vars = $this->ParserVars(Controller::curr()->getRequest()->getVars());
+            return Controller::join_links($page->Link(),'search?category='.$this->URLSegment.$vars);
+        }
+        return "#";
+    }
 }

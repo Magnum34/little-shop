@@ -11,11 +11,11 @@
                 <% if $ListCategories.exists %>
                     <ul>
                     <% loop $ListCategories %>
-                        <li>$Name</li>
+                        <li><a href="$Link">$Name</a></li>
                         <% if $Children.exists %>
                             <ul>
                             <% loop $Children %>
-                                <li>$Name</li>
+                                <li><a href="$Link">$Name</a></li>
                             <% end_loop %>
                             </ul>
                         <% end_if %>

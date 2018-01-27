@@ -31,7 +31,8 @@ class ProductsPage_Controller extends Page_Controller {
     );
 	
 	private static $url_handlers = array(
-	  '$Action/$product_url,$ID'
+        'search' => 'index',
+        'details/$ID' => 'details'
 	);
 
     public function getListCategories(){
@@ -60,9 +61,36 @@ class ProductsPage_Controller extends Page_Controller {
         return ProductTag::get();
     }
 
-    public function index(SS_HTTPRequest $request){
+    /**
+    * Configuration Filter
+    * 
+    **/
+    public function SearchArrayTo(array $requestSearch){
+        $list = array();
+        foreach($requestSearch as $key => $value){
+            switch($key){
+                case "url":
+                    break;
+                case "category":
+                    //TODO: filter Children
+                    $list["Categories.Name"] = $value;
+                default:
+                    break;
+            }
+        }
+        $this->extend("updateSearchArrayTo",$list);
+        return $list;
 
-        $this->products = Product::get();
+    }
+
+    public function index(SS_HTTPRequest $request){
+        $searchArray = $this->SearchArrayTo($request->getVars());
+        if(count($searchArray) > 0){
+            $this->products = Product::get()->filter($searchArray);
+        }else{
+            $this->products = Product::get();
+        }
+        
 
         return $this;
     }
