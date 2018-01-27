@@ -106,8 +106,7 @@ class ProductsPage_Controller extends Page_Controller {
 			$this->httpError(404);
         }
         $product = DataObject::get_one("Product","URLSegment = '$URL' ");
-        if($product){
-            var_dump($product->obj('Price')->NiceModifer());	
+        if($product){	
 		    $this->customise($product);
         }else{
             $this->httpError(404);
