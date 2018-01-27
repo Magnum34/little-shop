@@ -101,11 +101,17 @@ class ProductsPage_Controller extends Page_Controller {
 	
 	public function details(SS_HTTPRequest $request){
 		$URL = $request->param('URL');
+
         if(!$URL){
 			$this->httpError(404);
         }
-        $product = DataObject::get_one("Product","URLSegment = '$URL' ");	
-		$this->customise($product);
+        $product = DataObject::get_one("Product","URLSegment = '$URL' ");
+        if($product){
+            var_dump($product->obj('Price')->NiceModifer());	
+		    $this->customise($product);
+        }else{
+            $this->httpError(404);
+        }
 		
 		return $this->renderWith(array('ProductPage_Details','Page'));
 	}

@@ -1,2 +1,6 @@
 ---
 Name: little-shop
+---
+Currency:
+  extensions:
+    - CurrencyLittleShopExtension

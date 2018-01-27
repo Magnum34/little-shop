@@ -17,6 +17,7 @@ class Product extends DataObject {
     private static $db = array(
         "Title" => "Varchar(255)",
         "StockID" => "Varchar(255)",
+		"Price" => "Currency(19,2)",
         "URLSegment" => "Varchar(255)",
         "ShortDescription" => "Text",
         "Content" => "HTMLText",
@@ -116,7 +117,7 @@ class Product extends DataObject {
     }
 	
 	public function getLink(){
-			return Controller::join_links(Controller::curr()->URLSegment,'details',$this->URLSegment.",".$this->ID);
+			return Controller::join_links(Controller::curr()->URLSegment,'details',$this->URLSegment);
 	}
 	
 	public function getThumbnail(){
