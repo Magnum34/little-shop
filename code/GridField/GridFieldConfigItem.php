@@ -32,12 +32,19 @@ class GridFieldConfigItem extends GridFieldConfig {
         $this->addComponent($manager);
 
         $addbutton = new GridFieldAddNewMultiClass("buttons-before-left");
-        $addbutton->setClasses(array($className => $className));
-
-        if($className == "ProductCategory" || $className == "ProductKind"){
+        if(is_array($className)){
+            $addbutton->setClasses($className);
             $this->addComponent(new SubItemDetailsForm());
             $addbutton->setItemRequestClass("SubItemDetailsForm_ItemRequest");
+
+        }else {
+            $addbutton->setClasses(array($className => $className));
+            if($className == "ProductCategory" ){
+                $this->addComponent(new SubItemDetailsForm());
+                $addbutton->setItemRequestClass("SubItemDetailsForm_ItemRequest");
+            }
         }
+
 
         $this->addComponent($addbutton);
 

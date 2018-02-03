@@ -12,7 +12,7 @@ class ShopAdmin extends ModelAdmin {
     private static $managed_models = array(
         "Product" => array("title" => "Products"),
         "ProductCategory" => array("title" => "Categories"),
-        "ProductKind" => array("title"  => "Kinds"),
+        "AttributeType" => array("title"  => "Attributes"),
         "ProductTag" =>  array("title" => "Tags")
     );
 
@@ -41,11 +41,17 @@ class ShopAdmin extends ModelAdmin {
             ));
         }
 
-        if ($this->modelClass == 'ProductKind') {
+        if ($this->modelClass == 'AttributeType') {
+            $classes = array_values(ClassInfo::subclassesFor($gridField->getModelClass()));
+
+            //TODO: save children Class
+            $classes = array_splice($classes, 1);
             $gridField->setConfig(new GridFieldConfigItem(
-                $this->modelClass,
+                $classes,
                 $this->config()->page_length
             ));
+
+
         }
 
         if($this->modelClass == 'Product' || $this->modelClass == 'ProductTag'){
