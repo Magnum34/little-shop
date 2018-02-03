@@ -39,6 +39,13 @@
                     </ul>
                 <% end_if %>
             </div>
+            <div class="tags">
+                <% if $ListTags.exists %>
+                    <% loop $ListTags %>
+                        <a href="$Link">$Title</a>
+                    <% end_loop %>
+                <% end_if %>
+            </div>
 
         </div>
         <div class="col-8">

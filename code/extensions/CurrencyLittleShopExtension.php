@@ -38,8 +38,10 @@ class CurrencyLittleShopExtension extends DataExtension {
     }
 
     /**
-    * Modyfication function Nice
-    *
+    * Modification function Nice
+    * Change left or right currency symbol.
+    * Sets the separator for the decimal point.
+    * Sets the thousands separator.
     **/
     public function NiceModifer(){
         $dec_point = $this->owner->config()->dec_point;
@@ -79,7 +81,6 @@ class CurrencyLittleShopExtension extends DataExtension {
     
     public function getSymbolCurrency(){
         return  $this->owner->config()->currency_symbol;
-        
     }
     
 

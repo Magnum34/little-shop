@@ -56,7 +56,7 @@ class Product extends DataObject {
         $fields->removeByName("Categories");
         $fields->removeByName("Kinds");
 
-        $obj_url = new URLSegmentField();
+        $obj_url = new URLSegmentField('details/');
         $url_field = $obj_url->getURLEditField();
         $fields->addFieldsToTab("Root.Main",$url_field);
         $fields->addFieldsToTab("Root.Main", TagField::create("ProductTags", "Tags", ProductTag::get(), $this->ProductTags())
@@ -99,6 +99,9 @@ class Product extends DataObject {
             // Hook for extensions
             $this->extend('updateURLSegment', $t, $title);
             $this->URLSegment = $t;
+            $generate =  new GeneratorURLSegment($this,$this->URLSegment);
+            $generate->UniqueURLSegment();
+            $this->URLSegment = $generate->getURLSegment();
         }
 
     }

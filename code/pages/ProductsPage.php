@@ -78,6 +78,13 @@ class ProductsPage_Controller extends Page_Controller {
                     }
                     $children[] = $value;
                     $list["Categories.URLSegment"] = $children;
+                    break;
+                case "tag":
+                    $tag = DataObject::get_one("ProductTag","URLSegment = '$value' ");
+                    if($tag){
+                        $list["ProductTags.URLSegment"] = $value;
+                    }
+                    break;
                 default:
                     break;
             }

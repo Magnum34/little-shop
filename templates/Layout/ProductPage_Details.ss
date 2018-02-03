@@ -15,7 +15,11 @@
         <button class="btn-slider-right" id="button-right" >&#10095;</button>
         </div>
         <div class="col-6">
-        
+            <h2>$Price.BruttoTotal.Nice</h2>
+            <span>$Price.Nice ($Price.TaxRate VAT)</span>
+            <ul>
+                <li><span>Category:</span> <% loop $Categories %> $Title <% if not $last %> , <% end_if %> <% end_loop %></li>
+            </ul>
         </div>
 
     </div>

@@ -14,3 +14,9 @@
     transform: translate(0%,-50%);
     border: none;
 }
+ul {
+    list-style-type: none;
+}
+ul span {
+    font-weight: bold;
+}

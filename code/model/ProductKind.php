@@ -92,6 +92,9 @@ class ProductKind extends DataObject {
             // Hook for extensions
             $this->extend('updateURLSegment', $t, $name);
             $this->URLSegment = $t;
+            $generate =  new GeneratorURLSegment($this,$this->URLSegment);
+            $generate->UniqueURLSegment();
+            $this->URLSegment = $generate->getURLSegment();
         }
 
     }
